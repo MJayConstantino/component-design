@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { prisma } from "../server";
+import type { Request, Response } from "express";
 
 const router = Router();
 
-router.post("/", async (req, res) => {
+router.post("/", async (req: Request, res: Response) => {
   try {
     const {
       firstName,
@@ -31,7 +32,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", async (_req: Request, res: Response) => {
   try {
     const members = await prisma.member.findMany();
     res.status(200).json(members);
@@ -43,7 +44,24 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.get("/:id", async (req: Request, res: Response) => {
+  try {
+    const member = await prisma.member.findUnique({
+      where: { id: Number((req.params.id)) },
+    });
+    if (!member) {
+      res.status(404).json({ error: "Member not found." });
+      return
+    }
+    res.status(200).json(member);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching the member." });
+  }
+});
+
+router.put("/:id", async (req: Request, res: Response) => {
   try {
     const memberId = parseInt(req.params.id);
     const {
@@ -73,7 +91,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const memberId = parseInt(req.params.id);
     await prisma.member.delete({

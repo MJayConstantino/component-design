@@ -49,6 +49,6 @@ model Member {
   lastName              String
   groupName             String
   role                  String
-  expectedSalary        Int
+  expectedSalary        Float
   expectedDateOfDefense DateTime
 }
