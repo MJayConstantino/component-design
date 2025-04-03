@@ -8,7 +8,8 @@ git clone https://github.com/YOUR-USERNAME/YOUR-FORKED-REPO.git
 ```
 
 Install dependencies: 
-``` npm install
+```
+npm install
 ```
 
 for typescript projects also install:
