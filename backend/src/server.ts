@@ -6,11 +6,12 @@ import userRoutes from "./routes/user";
 import productRoutes from "./routes/product";
 import employeeRoutes from "./routes/employee";
 import memberRoutes from "./routes/member";
+import taskRoutes from "./routes/task";
 
 export const app = express();
 export const prisma = new PrismaClient();
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.use(express.json());
 app.use(cors());
 
@@ -23,6 +24,7 @@ app.use("/api/members", memberRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/tasks", taskRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

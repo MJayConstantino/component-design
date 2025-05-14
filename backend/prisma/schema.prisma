@@ -52,3 +52,26 @@ model Member {
   expectedSalary        Float
   expectedDateOfDefense DateTime
 }
+
+enum TaskType {
+basic
+timed
+checklist
+}
+
+enum SortStrategy {
+BY_DATE
+BY_TITLE
+BY_ID
+}
+
+model Task {
+  id          Int              @id @default(autoincrement())
+  title       String
+  description String?
+  dueDate     DateTime?
+  type        TaskType         @default(basic)
+  completed   Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+  checklist   Json             @default("[]")
+}
