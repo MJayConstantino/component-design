@@ -9,7 +9,7 @@ import memberRoutes from "./routes/member";
 import taskRoutes from "./routes/task";
 
 export const app = express();
-const prisma = new PrismaClient();
+export const prisma = new PrismaClient();
 
 const PORT = process.env.PORT || 3001;
 app.use(express.json());
@@ -30,4 +30,3 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-export { prisma };
