@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect}from "react";
 import { Member } from "@/types/member.type";
 import MemberCard from "@/components/Member/MemberCard";
 import { useCreateMember } from "@/hooks/Members/useCreateMember";
@@ -9,29 +9,27 @@ import CreateMemberDialog from "@/components/Member/CreateMemberDialog";
 
 const Act3Page: React.FC = () => {
   const { createMember, error: createError } = useCreateMember();
-  const { members, fetchMembers } = useFetchMembers();
+  const { members, fetchMembers, } = useFetchMembers();
   const { deleteMember, error: deleteError } = useDeleteMember();
   const { updateMember, error: updateError } = useUpdateMember();
 
-  const [refresh, setRefresh] = useState(false);
-
   useEffect(() => {
     fetchMembers();
-  }, [refresh, fetchMembers]);
+  }, []); 
 
   const handleCreateMember = async (member: Member) => {
     await createMember(member);
-    setRefresh((prev) => !prev);
+    fetchMembers();
   };
 
   const handleDeleteMember = async (id: string) => {
     await deleteMember(id);
-    setRefresh((prev) => !prev);
+    fetchMembers();
   };
 
   const handleUpdateMember = async (id: string, member: Member) => {
     await updateMember(id, member);
-    setRefresh((prev) => !prev);
+    fetchMembers();
   };
 
   return (
