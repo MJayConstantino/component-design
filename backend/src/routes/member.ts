@@ -106,3 +106,15 @@ router.delete("/:id", async (req: Request, res: Response) => {
 });
 
 export default router;
+
+router.delete("/", async (_req: Request, res: Response) => {
+  try {
+    await prisma.member.deleteMany({});
+    res.status(200).json({ message: "All members have been deleted" });
+  } catch (error) {
+    console.error("Error deleting all members:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while deleting all members." });
+  }
+});
